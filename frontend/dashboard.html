@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Payroll Manager</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav>
+        <h1>Payroll Manager</h1>
+        <button id="logoutBtn">Logout</button>
+    </nav>
+    <div class="container">
+        <h2>Employees</h2>
+        <button class="primary" onclick="document.getElementById('addEmployeeModal').style.display='block'">+ Add
+            Employee</button>
+        <div id="employeeList" class="grid-container"></div>
+
+        <h2>Payroll</h2>
+        <button id="generatePayrollBtn" class="primary">Generate Payroll for All</button>
+        <div id="payrollList"></div>
+    </div>
+
+    <!-- Add Employee Modal -->
+    <div id="addEmployeeModal" class="modal">
+        <div class="modal-content">
+            <span onclick="document.getElementById('addEmployeeModal').style.display='none'"
+                class="close">&times;</span>
+            <h2>Add Employee</h2>
+            <form id="addEmployeeForm">
+                <input type="text" id="empName" placeholder="Name" required>
+                <input type="number" id="empSalary" placeholder="Salary" required>
+                <input type="file" id="empPhoto" accept="image/*">
+                <button type="submit" class="primary btn-block">Save Employee</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

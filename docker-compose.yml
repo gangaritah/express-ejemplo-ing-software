@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:15
+    container_name: payroll_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: payroll_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d payroll_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: payroll_app
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DB_HOST: db
+      DB_USER: admin
+      DB_PASSWORD: password
+      DB_NAME: payroll_db
+      JWT_SECRET: supersecretkey
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./uploads:/usr/src/app/uploads
+
+volumes:
+  postgres_data:
